@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html>
+<head>
+  <title>Network topology</title>
+
+  <style type="text/css">
+    #mynetwork {
+      width: 600px;
+      height: 600px;
+      border: 1px solid lightgray;
+    }
+  </style>
+
+  <script type="text/javascript" src="./vis.js"></script>
+  <link href="./vis-network.min.css" rel="stylesheet" type="text/css" />
+
+  <script type="text/javascript">
+    var nodes = null;
+    var edges = null;
+    var network = null;
+
+    var EDGE_LENGTH_MAIN = 150;
+    var EDGE_LENGTH_SUB = 50;
+
+    // Called when the Visualization API is loaded.
+    function draw() {
+      // Create a data table with nodes.
+      nodes = [];
+
+      // Create a data table with links.
+      edges = [];
+
+      <% @topology.each do |topology| %>
+      <%= topology %>
+      <% end %>
+
+      // create a network
+      var container = document.getElementById('mynetwork');
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {};
+      network = new vis.Network(container, data, options);
+    }
+  </script>
+
+<body onload="draw()">
+
+<div id="mynetwork"></div>
+
+</body>
+</html>
