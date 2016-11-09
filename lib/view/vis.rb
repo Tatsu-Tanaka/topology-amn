@@ -2,7 +2,7 @@ require 'pio'
 require 'erb'
 
 module View
-  # Topology controller's GUI (graphviz).
+  # Topology controller's GUI (vis.js).
   class Vis
     def initialize(output = 'topology.html')
       @output = output
