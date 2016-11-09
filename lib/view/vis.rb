@@ -12,7 +12,6 @@ module View
     def update(_event, _changed, topology)
       outtext = Array.new
       nodes = topology.switches.each_with_object({}) do |each, tmp|
-        tmp[each] =
         outtext.push(sprintf("nodes.push({id:%d, label:'%#x', shape: box});", each.to_i, each.to_hex))
       end
       topology.links.each do |each|
