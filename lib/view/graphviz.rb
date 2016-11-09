@@ -1,4 +1,5 @@
 require 'graphviz'
+require 'pio'
 
 module View
   # Topology controller's GUI (graphviz).
@@ -18,7 +19,8 @@ module View
           gviz.add_edges nodes[each.dpid_a], nodes[each.dpid_b]
         end
         topology.hosts.each do |each|
-          gviz.add_nodes(each[2], shape: 'circle')
+          host = gviz.add_nodes(each[1].to_s, shape: 'ellipse')
+          gviz.add_edges host, nodes[each[2]]
         end
         gviz.output png: @output
       end

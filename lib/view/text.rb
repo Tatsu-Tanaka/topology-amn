@@ -33,6 +33,10 @@ module View
       show_status "Link #{link} deleted", topology.links
     end
 
+    def add_host(mac_address, port, topology)
+      show_status("host #{mac_address} added", topology.hosts)
+    end
+
     def to_s
       'text mode'
     end
