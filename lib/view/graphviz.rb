@@ -17,6 +17,9 @@ module View
           next unless nodes[each.dpid_a] && nodes[each.dpid_b]
           gviz.add_edges nodes[each.dpid_a], nodes[each.dpid_b]
         end
+        topology.hosts.each do |each|
+          gviz.add_nodes(each[2], shape: 'circle')
+        end
         gviz.output png: @output
       end
     end
