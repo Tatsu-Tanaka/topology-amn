@@ -23,7 +23,7 @@ module View
           host = gviz.add_nodes(each[1].to_s, shape: 'ellipse')  #add ellipse with ip_address(each[1])
           gviz.add_edges host, nodes[each[2]]  #add link between host and switch(each[2]:switch dpid)
         end
-        gviz.output png: @outp
+        gviz.output png: @output
       end
     end
     # rubocop:enable AbcSize
