@@ -1,3 +1,5 @@
+require 'pio'
+
 module View
   # Topology controller's CUI.
   class Text
@@ -33,6 +35,7 @@ module View
       show_status "Link #{link} deleted", topology.links
     end
 
+    #added (2016.11.9) show when host is added
     def add_host(mac_address, port, topology)
       show_status("host #{mac_address} added", topology.hosts)
     end
