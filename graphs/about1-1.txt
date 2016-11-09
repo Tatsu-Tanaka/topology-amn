@@ -1,0 +1,2 @@
+unplugged port1 - port7
+then deleted link about 0x1 - 0x3
