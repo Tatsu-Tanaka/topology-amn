@@ -4,7 +4,7 @@ require 'erb'
 module View
   # Topology controller's GUI (vis.js).
   class Vis
-    def initialize(output = 'topology.html')
+    def initialize(output = 'index.html')
       @output = output
     end
 
@@ -25,7 +25,7 @@ module View
       end
       @topology = outtext
       fhtml = open(@output)
-      puts ERB.new(File.open(@output).read).result(binding)
+      fhtml.write(ERB.new(File.open('topology.html').read).result(binding))
     end
     # rubocop:enable AbcSize
 
