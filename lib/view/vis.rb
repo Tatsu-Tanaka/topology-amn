@@ -24,8 +24,8 @@ module View
         outtext.push(sprintf("edges.push({from:%d, to:%d, length: EDGE_LENGTH_MAIN});", each[1].to_i, each[2].to_i))#add link between host and switch(each[2]:switch dpid)
       end
       @topology = outtext
-      fhtml = open(@output)
-      fhtml.write(ERB.new(File.open('topology.html').read).result(binding))
+      fhtml = open(@output, "w")
+      fhtml.write(ERB.new(File.open('lib/view/topology.html').read).result(binding))
     end
     # rubocop:enable AbcSize
 
