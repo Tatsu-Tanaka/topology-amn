@@ -34,8 +34,7 @@
 ### 2. 全ポートへのケーブリング
 実機スイッチのVSIに対して配布された全てのイーサネットケーブル接続した．
 
-
-|<figure><img src="./img_report/working.jpg" height="320px"><br><figcaption>ケーブリングの様子</figcaption></figure>|<figure><img src="./img_report/cable2.jpg" height="320px"><br><figcaption>ケーブリングした結果</figcaption></figure>|
+|<figure><img src="./img_report/working.jpg" height="300px"><br><figcaption>ケーブリングの様子</figcaption></figure>|<figure><img src="./img_report/cable2.jpg" height="300px"><br><figcaption>ケーブリングした結果</figcaption></figure>|
 |:--:|:--:|
 
 ### 3. Topologyを用いたトポロジの表示とケーブルの抜き差し
