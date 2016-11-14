@@ -90,6 +90,9 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 #### 2.3 実機スイッチを用いた動作の検証
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
 実行時の様子と、実行結果の画面を以下に示す．
-
+<figure>
 <img src="./img_report/real_machine.jpg" width="640px">
+<figurecaption>実行時の様子</figurecaption>
 <img src="./img_report/screenshot_real.png" width="640px">
+<figurecaption>表示結果</figurecaption>
+</figure>
