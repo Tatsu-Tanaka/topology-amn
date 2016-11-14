@@ -42,7 +42,7 @@ link '0x1', '192.168.1.1'
 link '0x2', '192.168.1.2'
 link '0x3', '192.168.1.3'
 ```
-以下の画像が主力された．
+以下の画像が主力された．  
 ![1-2](./graphs/test.png)
 
 ### 2. ブラウザ表示機能
@@ -90,5 +90,6 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 #### 2.3 実機スイッチを用いた動作の検証
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
 実行時の様子と、実行結果の画面を以下に示す．
-![real_machine](./img_report/real_machine.jpg)
-![screenshot_real](./img_report/screenshot_real.png)
+
+|![real_machine](./img_report/real_machine.jpg)||![screenshot_real](./img_report/screenshot_real.png)|
+|:--:|:--:|
