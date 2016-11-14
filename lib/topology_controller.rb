@@ -52,10 +52,14 @@ class TopologyController < Trema::Controller
                                dpid,
                                packet_in.in_port)
     elsif packet_in.data.is_a? Parser::IPv4Packet
-      @topology.maybe_add_host(packet_in.source_mac,
-                               packet_in.source_ip_address,
-                               dpid,
-                               packet_in.in_port)
+      print packet_in.source_ip_adress.to_s
+      print "\n"
+      if packet_in.source_ip_adress.to_s != "0.0.0.0"
+        @topology.maybe_add_host(packet_in.source_mac,
+                                 packet_in.source_ip_address,
+                                 dpid,
+                                 packet_in.in_port)
+      end
     end
   end
 
