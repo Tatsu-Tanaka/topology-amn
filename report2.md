@@ -92,7 +92,9 @@ VSI間で適当にイーサネットケーブルを配線し、2台のPCをホ�
 実行時の様子と、実行結果の画面を以下に示す．
 <figure>
 <img src="./img_report/real_machine.jpg" width="640px">
-<figurecaption>実行時の様子</figurecaption>
+<figcaption>実行時の様子</figcaption>
+</figure>
+<figure>
 <img src="./img_report/screenshot_real.png" width="640px">
-<figurecaption>表示結果</figurecaption>
+<figcaption>表示結果</figcaption>
 </figure>
