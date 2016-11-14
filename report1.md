@@ -33,8 +33,11 @@
 |48|0x10|46〜48|
 ### 2. 全ポートへのケーブリング
 実機スイッチのVSIに対して配布された全てのイーサネットケーブル接続した．
-![working](./img_report/working.jpg "ケーブリングの様子")
-![cable2](./img_report/cable2.jpg "ケーブリングした結果")
+
+
+|<figure><img src="./img_report/working.jpg" height="320px"><br><figcaption>ケーブリングの様子</figcaption></figure>|<figure><img src="./img_report/cable2.jpg" height="320px"><br><figcaption>ケーブリングした結果</figcaption></figure>|
+|:--:|:--:|
+
 ### 3. Topologyを用いたトポロジの表示とケーブルの抜き差し
 #### 手順1. 実機に対し適当にケーブリングをした上で、以下のコマンドを実行した．
 ```
