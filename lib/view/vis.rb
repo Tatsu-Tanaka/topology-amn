@@ -20,7 +20,7 @@ module View
       end
       #added (2016.11.9) add ellipse with ip_address and link between host and switch
       topology.hosts.each do |each|  #for all host
-        outtext.push(sprintf("nodes.push({id: %d, label: '%s', image:DIR+'switch.png', shape: 'image'});", each[1].to_i, each[1].to_s))#add ellipse with ip_address(each[1])
+        outtext.push(sprintf("nodes.push({id: %d, label: '%s', image:DIR+'host.png', shape: 'image'});", each[1].to_i, each[1].to_s))#add ellipse with ip_address(each[1])
         outtext.push(sprintf("edges.push({from: %d, to: %d});", each[1].to_i, each[2].to_i))#add link between host and switch(each[2]:switch dpid)
       end
       @topology = outtext

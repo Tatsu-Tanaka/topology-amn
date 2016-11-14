@@ -9,8 +9,8 @@
 
   <style type="text/css">
     #mynetwork {
-      width: 600px;
-      height: 600px;
+      width: 1000px;
+      height: 800px;
       border: 1px solid lightgray;
     }
   </style>
@@ -32,17 +32,87 @@
     edges = [];
 
     
-    nodes.push({id: 1, label: '0x1', image:DIR+'switch.png', shape: 'image'});
+    nodes.push({id: 11, label: '0xb', image:DIR+'switch.jpg', shape: 'image'});
     
-    nodes.push({id: 2, label: '0x2', image:DIR+'switch.png', shape: 'image'});
+    nodes.push({id: 8, label: '0x8', image:DIR+'switch.jpg', shape: 'image'});
     
-    nodes.push({id: 3, label: '0x3', image:DIR+'switch.png', shape: 'image'});
+    nodes.push({id: 12, label: '0xc', image:DIR+'switch.jpg', shape: 'image'});
     
-    edges.push({from: 2, to: 1});
+    nodes.push({id: 6, label: '0x6', image:DIR+'switch.jpg', shape: 'image'});
     
-    edges.push({from: 1, to: 3});
+    nodes.push({id: 3, label: '0x3', image:DIR+'switch.jpg', shape: 'image'});
     
-    edges.push({from: 2, to: 3});
+    nodes.push({id: 16, label: '0x10', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 2, label: '0x2', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 5, label: '0x5', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 13, label: '0xd', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 7, label: '0x7', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 14, label: '0xe', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 1, label: '0x1', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 10, label: '0xa', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 15, label: '0xf', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 9, label: '0x9', image:DIR+'switch.jpg', shape: 'image'});
+    
+    nodes.push({id: 4, label: '0x4', image:DIR+'switch.jpg', shape: 'image'});
+    
+    edges.push({from: 8, to: 13});
+    
+    edges.push({from: 11, to: 4});
+    
+    edges.push({from: 2, to: 12});
+    
+    edges.push({from: 7, to: 3});
+    
+    edges.push({from: 13, to: 6});
+    
+    edges.push({from: 2, to: 8});
+    
+    edges.push({from: 5, to: 9});
+    
+    edges.push({from: 16, to: 15});
+    
+    edges.push({from: 6, to: 4});
+    
+    edges.push({from: 12, to: 9});
+    
+    edges.push({from: 3, to: 6});
+    
+    edges.push({from: 14, to: 15});
+    
+    edges.push({from: 3, to: 9});
+    
+    edges.push({from: 1, to: 5});
+    
+    edges.push({from: 15, to: 10});
+    
+    edges.push({from: 13, to: 10});
+    
+    edges.push({from: 10, to: 14});
+    
+    edges.push({from: 11, to: 7});
+    
+    edges.push({from: 11, to: 14});
+    
+    edges.push({from: 16, to: 1});
+    
+    edges.push({from: 1, to: 7});
+    
+    nodes.push({id: 1912930564, label: '114.5.1.4', image:DIR+'host.png', shape: 'image'});
+    
+    edges.push({from: 1912930564, to: 5});
+    
+    nodes.push({id: 134877971, label: '8.10.19.19', image:DIR+'host.png', shape: 'image'});
+    
+    edges.push({from: 134877971, to: 12});
     
 
     // create a network
