@@ -12,7 +12,7 @@ module View
     def update(_event, _changed, topology)
       outtext = Array.new
       nodes = topology.switches.each_with_object({}) do |each, tmp|
-        outtext.push(sprintf("nodes.push({id: %d, label: '%#x', image:DIR+'switch.png', shape: 'image'});", each.to_i, each.to_hex))
+        outtext.push(sprintf("nodes.push({id: %d, label: '%#x', image:DIR+'switch.jpg', shape: 'image'});", each.to_i, each.to_hex))
       end
       topology.links.each do |each|
         #next unless nodes[each.dpid_a] && nodes[each.dpid_b]
