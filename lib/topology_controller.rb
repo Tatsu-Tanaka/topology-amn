@@ -51,7 +51,7 @@ class TopologyController < Trema::Controller
                                packet_in.source_ip_address,
                                dpid,
                                packet_in.in_port)
-    elsif packet_in.data.is_a? IPv4Packet
+    elsif packet_in.data.is_a? IPV4
       @topology.maybe_add_host(packet_in.source_mac,
                                packet_in.source_ip_address,
                                dpid,
