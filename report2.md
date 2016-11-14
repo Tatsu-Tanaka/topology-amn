@@ -14,7 +14,8 @@
 ### 1. ホストの接続関係の表示
 #### 1.1 実装内容
 `/lib/view/graphviz.rb`のコードに、
-`/lib/topology.rb`のインスタンス変数`@host`の内容を取得し、出力に書き加える処理を追加することで、ホストの接続関係を表示させた．
+`/lib/topology.rb`に新たに追加したインスタンス変数`@host`の内容を取得し、出力に書き加える処理を追加することで、ホストの接続関係を表示させた．
+
 `/lib/view/graphviz.rb`に追加したコードの内容は以下の通り．
 ```ruby
 #added (2016.11.9) add ellipse with ip_address and link between host and switch
@@ -46,15 +47,15 @@ link '0x3', '192.168.1.3'
 
 ### 2. ブラウザ表示機能
 #### 2.1 実装方針
-View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロジ画像をjavascriptとして埋め込んだhtmlファイルを出力するView::Visクラスを実装した．
+View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロジ画像をjavascriptとして埋め込んだhtmlファイルを出力するView::Visクラスを/lib/view/vis.rbに実装した．
 #### 2.2 ソースコードで変更・追加した内容
-機能の実装に際して追加、変更、新規作成したファイルは以下の通り．
+##### 2.2.1 追加、変更、新規作成したファイルの一覧
 * [/lib/command_line.rb](/lib/command_line.rb)
  - 既存のファイルに処理を追加
  - ブラウザでトポロジ図を表示するためのサブコマンドを実装
 * [/lib/view/vis.rb](./lib/view/vis.rb)
  - 新規作成
- - トポロジが更新され、updateハンドラが呼び出されると、Topologyクラスの持つhost,switch,linkの内容を`/lib/view/topology.html`にトポロジの内容を埋め込んで`/index.html`として出力
+ - トポロジが更新され、updateハンドラが呼び出されると、Topologyクラスの持つhost,switch,linkの内容を`/lib/view/topology.html`にトポロジの内容を埋め込んで`/index.html`に出力
 * [/lib/view/topology.html](./lib/view/topology.html)
  - 新規作成
  - 出力ファイルの雛形
@@ -73,8 +74,20 @@ View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロ
  - 新規追加
  - スイッチの画像ソース
 
+##### 2.2.2 vis.rbのコード
+vis.rbではRubyの標準添付ライブラリであるERBを使用して`/lib/view/topology.html`にTopologyクラスの持つ、スイッチ、ホスト、リンクの内容をjavascriptの書式に変換してから出力ファイルである`/index.html`に埋め込んでいる．
 
-#### 実機スイッチを用いた動作の検証
+updateハンドラのローカルな配列outtextの各要素は、最終的なhtml形式の出力ファイルに書き出されるスイッチ、リンク、ホストの一つ一つの内容がjavascriptの書式に変換されたものである．14〜25行目の処理では、スイッチ、リンク、ホストの順にsprintf()関数によってTopologyクラスのインスタンス変数の持つ値が文字列に展開されてouttextに記録される．
+
+26行目でouttextの内容はインスタンス変数@topologyに保存され、28行目でERBによって[/lib/view/topology.html](./lib/view/topology.html)の34〜36行目に埋め込まれたRubyスクリプト片である
+```html
+<% @topology.each do |topology| %>
+<%= topology %>
+<% end %>
+```
+部分が評価される．ここで、配列である@topologyの各要素がこの部分に先頭から順に添付されていき、最終的に出力結果は`/index.html`に保存される．
+
+#### 2.3 実機スイッチを用いた動作の検証
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
 実行時の様子と、実行結果の画面を以下に示す．
 ![real_machine](./img_report/real_machine.jpg)
