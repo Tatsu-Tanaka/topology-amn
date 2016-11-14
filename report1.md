@@ -37,10 +37,11 @@
 ![cable2](./img_report/cable2.jpg "ケーブリングした結果")
 ### 3. Topologyを用いたトポロジの表示とケーブルの抜き差し
 1. 実機に対し適当にケーブリングをした上で、以下のコマンドを実行した．
-```
+```sh
 ./bin/trema run ./lib/topology_controller.rb -- graphviz ./graphs/1-1.png
 ```
 実行結果は以下の用になった．
+
 ![1-1](./graphs/1-1.png)
 
 1. 上記のトポロジ図が表示された状態から、VSI:0x1と0x3を結ぶイーサネットケーブルを抜くと、トポロジ図は以下のものに更新された．
