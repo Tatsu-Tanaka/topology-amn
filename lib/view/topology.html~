@@ -24,26 +24,15 @@
     var edges = null;
     var network = null;
 
-    var DIR = './images/';
     // Create a data table with nodes.
     nodes = [];
 
     // Create a data table with links.
     edges = [];
 
-    
-    nodes.push({id: 1, label: '0x1', image:DIR+'switch.png', shape: 'image'});
-    
-    nodes.push({id: 2, label: '0x2', image:DIR+'switch.png', shape: 'image'});
-    
-    nodes.push({id: 3, label: '0x3', image:DIR+'switch.png', shape: 'image'});
-    
-    edges.push({from: 2, to: 1});
-    
-    edges.push({from: 1, to: 3});
-    
-    edges.push({from: 2, to: 3});
-    
+    <% @topology.each do |topology| %>
+    <%= topology %>
+    <% end %>
 
     // create a network
     var container = document.getElementById('mynetwork');
