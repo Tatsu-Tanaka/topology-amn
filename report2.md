@@ -91,5 +91,7 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
 実行時の様子と、実行結果の画面を以下に示す．
 
-|![real_machine](./img_report/real_machine.jpg)||![screenshot_real](./img_report/screenshot_real.png)|
-|:--:|:--:|
+![real_machine](./img_report/real_machine.jpg)
+![screenshot_real](./img_report/screenshot_real.png)
+
+<img src="./img_report/real_machine.jpg" width="320px">
