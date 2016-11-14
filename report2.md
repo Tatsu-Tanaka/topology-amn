@@ -77,7 +77,7 @@ View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロ
 ##### 2.2.2 vis.rbのコード
 vis.rbではRubyの標準添付ライブラリであるERBを使用して`/lib/view/topology.html`にTopologyクラスの持つ、スイッチ、ホスト、リンクの内容をjavascriptの書式に変換してから出力ファイルである`/index.html`に埋め込んでいる．
 
-updateハンドラのローカルな配列outtextの各要素は、最終的なhtml形式の出力ファイルに書き出されるスイッチ、リンク、ホストの一つ一つの内容がjavascriptの書式に変換されたものである．14〜25行目の処理では、スイッチ、リンク、ホストの順にsprintf()関数によってTopologyクラスのインスタンス変数の持つ値が文字列に展開されてouttextに記録される．
+updateハンドラのローカルな配列outtextの各要素は、最終的なhtml形式の出力ファイルに書き出されるスイッチ、リンク、ホストの一つ一つの内容がjavascriptの書式に変換されたものである．14〜25行目の処理では、スイッチ、リンク、ホストの順にsprintf()関数によってTopologyクラスのインスタンス変数の持つ値が変換指定子の書式で展開されたうえでouttextに記録される．
 
 26行目でouttextの内容はインスタンス変数@topologyに保存され、28行目でERBによって[/lib/view/topology.html](./lib/view/topology.html)の34〜36行目に埋め込まれたRubyスクリプト片である
 ```html
@@ -90,11 +90,6 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 #### 2.3 実機スイッチを用いた動作の検証
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
 実行時の様子と、実行結果の画面を以下に示す．
-<figure>
-<img src="./img_report/real_machine.jpg" width="640px">
-<figcaption>実行時の様子</figcaption>
-</figure>
-<figure>
-<img src="./img_report/screenshot_real.png" width="640px">
-<figcaption>表示結果</figcaption>
-</figure>
+
+|<figure><img src="./img_report/real_machine.jpg" width="640px"><figcaption>実行時の様子</figcaption></figure>|<figure><img src="./img_report/screenshot_real.png" width="640px"><figcaption>表示結果</figcaption></figure>|
+|:--:|:--:|
