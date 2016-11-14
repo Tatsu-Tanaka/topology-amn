@@ -81,11 +81,11 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 
 26行目でouttextの内容はインスタンス変数@topologyに保存され、28行目でERBによって[/lib/view/topology.html](./lib/view/topology.html)の34〜36行目に埋め込まれたRubyスクリプト片である
 ```html
-<% @topology.each do |topology| %>
-<%= topology %>
-<% end %>
+34: <% @topology.each do |topology| %>
+35: <%= topology %>
+36: <% end %>
 ```
-部分が評価される．ここで、配列である@topologyの各要素がこの部分に先頭から順に添付されていき、最終的に出力結果は`/index.html`に保存される．
+部分が実行される．35行目では、配列である@topologyの各要素が先頭から順に評価される．この結果がERBによって`/index.html`に添付されていき、最終的に出力ファイルが得られる．
 
 #### 2.3 実機スイッチを用いた動作の検証
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
