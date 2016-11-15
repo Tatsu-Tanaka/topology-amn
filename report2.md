@@ -50,6 +50,9 @@ link '0x3', '192.168.1.3'
 View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロジ画像をjavascriptとして埋め込んだhtmlファイルを出力するView::Visクラスを/lib/view/vis.rbに実装した．
 #### 2.2 ソースコードで変更・追加した内容
 ##### 2.2.1 追加、変更、新規作成したファイルの一覧
+* [/lib/topology_controller.rb](/lib/topology_controller.rb)
+ - 既存のファイルに，パケットを判別する処理を追加
+ - 詳細は2.3を参照
 * [/lib/command_line.rb](/lib/command_line.rb)
  - 既存のファイルに処理を追加
  - ブラウザでトポロジ図を表示するためのサブコマンドを実装
@@ -87,7 +90,39 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 ```
 部分が実行される．35行目では、配列である@topologyの各要素が先頭から順に評価される．この結果がERBによって`/index.html`に添付されていき、最終的に出力ファイルが得られる．
 
-#### 2.3 実機スイッチを用いた動作の検証
+#### 2.3 実機スイッチにホストを接続した際に送信される，意図しないパケットへの対応
+実機スイッチにホストを接続すると，LLDP，IPv4パケット，Arpによるパケットのいずれにも属さないパケット(以降，このパケットをゴミパケットと呼ぶ)
+によるPacketInが発生する．
+デフォルトのプログラムでは，LLDP以外のパケットは，ホストから送信されたパケットとみなし，トポロジにホストを追加する処理を
+行っているが，ゴミパケットによるPacketInが発生すると，ホストの情報が取得できないため，プログラムが強制終了してしまうといった
+問題が発生する．
+この問題を解決するために，[/lib/topology_controller.rb]topology_controller.rbのプログラムのうち，パケットの判別に関する
+処理の部分を以下のように修正した．
+```ruby
+46: def packet_in(dpid, packet_in)
+47:    if packet_in.lldp?
+48:      @topology.maybe_add_link Link.new(dpid, packet_in)
+49:    elsif packet_in.data.is_a? Arp
+50:      @topology.maybe_add_host(packet_in.source_mac,
+51:                               packet_in.source_ip_address,
+52:                               dpid,
+53:                               packet_in.in_port)
+54:    elsif packet_in.data.is_a? Parser::IPv4Packet
+55:      if packet_in.source_ip_address.to_s != "0.0.0.0"
+56:        @topology.maybe_add_host(packet_in.source_mac,
+57:                                 packet_in.source_ip_address,
+58:                                 dpid,
+59:                                 packet_in.in_port)
+60:      end
+61:    end
+62:  end
+```
+まず，PacketInの発生要因となったパケットが，LLDPパケットである場合は，リンクを追加する処理を実行する(47~48行目)．
+ArpによるパケットやIPv4Packetである場合は，ホストを追加する処理を実行する(49~61行目)．
+それ以外のパケット，つまりゴミパケットである場合は，何も処理をしない．
+このようにプログラムを修正することで，ゴミパケットによる問題を解決した．
+
+#### 2.4 実機スイッチを用いた動作の検証
 VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
 実行時の様子と、実行結果の画面を以下に示す．
 
