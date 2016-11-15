@@ -8,15 +8,15 @@
 
 ## グループ課題2: トポロジコントローラの拡張
 ### 0. 課題内容
->* スイッチの接続関係に加えて、ホストの接続関係を表示する
->* ブラウザで表示する機能を追加する。おすすめは [vis.js](https://github.com/almende/vis) です
+>* スイッチの接続関係に加えて，ホストの接続関係を表示する
+>* ブラウザで表示する機能を追加する．おすすめは [vis.js](https://github.com/almende/vis) です
 
 ### 1. ホストの接続関係の表示
 #### 1.1 実装内容
-`/lib/view/graphviz.rb`のコードに、
-`/lib/topology.rb`に新たに追加したインスタンス変数`@host`の内容を取得し、出力に書き加える処理を追加することで、ホストの接続関係を表示させた．
+`./lib/view/graphviz.rb`のコードに，
+`./lib/topology.rb`に新たに追加したインスタンス変数`@host`の内容を取得し，出力に書き加える処理を追加することで，ホストの接続関係を表示させた．
 
-`/lib/view/graphviz.rb`に追加したコードの内容は以下の通り．
+`./lib/view/graphviz.rb`に追加したコードの内容は以下の通り．
 ```ruby
 #added (2016.11.9) add ellipse with ip_address and link between host and switch
 topology.hosts.each do |each|  #for all host
@@ -25,7 +25,7 @@ topology.hosts.each do |each|  #for all host
 end
 ```
 #### 1.2 実行結果
-`/triangle.conf`に以下のようにホストの設定を加え、tremaを実行してトポロジ画像を表示させた．
+`./triangle.conf`に以下のようにホストの設定を加え，tremaを実行してトポロジ画像を表示させた．
 ```
 vswitch { dpid '0x1' }
 vswitch { dpid '0x2' }
@@ -47,19 +47,19 @@ link '0x3', '192.168.1.3'
 
 ### 2. ブラウザ表示機能
 #### 2.1 実装方針
-View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロジ画像をjavascriptとして埋め込んだhtmlファイルを出力するView::Visクラスを/lib/view/vis.rbに実装した．
+View::Graphvizクラスのコードを参考に，Vis.jsを使用してトポロジ画像をjavascriptとして埋め込んだhtmlファイルを出力するView::Visクラスを`./lib/view/vis.rb`に実装した．
 #### 2.2 ソースコードで変更・追加した内容
-##### 2.2.1 追加、変更、新規作成したファイルの一覧
-* [/lib/topology_controller.rb](/lib/topology_controller.rb)
+##### 2.2.1 追加，変更，新規作成したファイルの一覧
+* [lib/topology_controller.rb](./lib/topology_controller.rb)
  - 既存のファイルに，パケットを判別する処理を追加
  - 詳細は2.3を参照
-* [/lib/command_line.rb](/lib/command_line.rb)
+* [lib/command_line.rb](./lib/command_line.rb)
  - 既存のファイルに処理を追加
  - ブラウザでトポロジ図を表示するためのサブコマンドを実装
-* [/lib/view/vis.rb](./lib/view/vis.rb)
+* [lib/view/vis.rb](./lib/view/vis.rb)
  - 新規作成
- - トポロジが更新され、updateハンドラが呼び出されると、Topologyクラスの持つhost,switch,linkの内容を`/lib/view/topology.html`にトポロジの内容を埋め込んで`/index.html`に出力
-* [/lib/view/topology.html](./lib/view/topology.html)
+ - トポロジが更新され，updateハンドラが呼び出されると，Topologyクラスの持つhost,switch,linkの内容を`./lib/view/topology.html`にトポロジの内容を埋め込んで`/index.html`に出力
+* [lib/view/topology.html](./lib/view/topology.html)
  - 新規作成
  - 出力ファイルの雛形
 * /lib/view/vis.js
@@ -68,7 +68,7 @@ View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロ
 * /lib/view/vis-network.min.css
  - 新規追加
  - 出力するhtmlが参照するスタイルシート
-* [/index.html](./index.html)
+* [index.html](./index.html)
  - 作成した機能の出力ファイル
 * /images/host.png
  - 新規追加
@@ -78,17 +78,44 @@ View::Graphvizクラスのコードを参考に、Vis.jsを使用してトポロ
  - スイッチの画像ソース
 
 ##### 2.2.2 vis.rbのコード
-vis.rbではRubyの標準添付ライブラリであるERBを使用して`/lib/view/topology.html`にTopologyクラスの持つ、スイッチ、ホスト、リンクの内容をjavascriptの書式に変換してから出力ファイルである`/index.html`に埋め込んでいる．
+vis.rbではRubyの標準添付ライブラリであるERBを使用して`/lib/view/topology.html`にTopologyクラスの持つ，スイッチ，ホスト，リンクの内容をjavascriptの書式に変換してから出力ファイルである`/index.html`に埋め込んでいる．
+```Ruby
+26: @topology = outtext
+27: fhtml = open(@output, "w")
+28: fhtml.write(ERB.new(File.open('lib/view/topology.html').read).result(binding))
+```
+ここで，updateハンドラのローカルな配列outtextの各要素は，最終的なhtml形式の出力ファイルに書き出されるスイッチ，リンク，ホストの一つ一つの内容がjavascriptの書式に変換されたものである．14〜25行目の処理では，スイッチ，リンク，ホストの順にsprintf()関数によってTopologyクラスのインスタンス変数の持つ値が変換指定子の書式で展開されたうえでouttextに記録される．
+スイッチの部分を以下に示す．
+```Ruby
+14: nodes = topology.switches.each_with_object({}) do |each, tmp|
+15:   outtext.push(sprintf("nodes.push({id: %d, label: '%#x', image:DIR+'switch.jpg', shape: 'image'});", each.to_i, each.to_hex))
+16: end
+```
 
-updateハンドラのローカルな配列outtextの各要素は、最終的なhtml形式の出力ファイルに書き出されるスイッチ、リンク、ホストの一つ一つの内容がjavascriptの書式に変換されたものである．14〜25行目の処理では、スイッチ、リンク、ホストの順にsprintf()関数によってTopologyクラスのインスタンス変数の持つ値が変換指定子の書式で展開されたうえでouttextに記録される．
-
-26行目でouttextの内容はインスタンス変数@topologyに保存され、28行目でERBによって[/lib/view/topology.html](./lib/view/topology.html)の34〜36行目に埋め込まれたRubyスクリプト片である
+26行目でouttextの内容はインスタンス変数@topologyに保存され，28行目でERBによって[lib/view/topology.html](./lib/view/topology.html)の34〜36行目に埋め込まれたRubyスクリプト片である
 ```html
 34: <% @topology.each do |topology| %>
 35: <%= topology %>
 36: <% end %>
 ```
-部分が実行される．35行目では、配列である@topologyの各要素が先頭から順に評価される．この結果がERBによって`/index.html`に添付されていき、最終的に出力ファイルが得られる．
+部分が実行される．35行目では，配列である@topologyの各要素が先頭から順に評価される．この結果がERBによって`./index.html`に添付されていき，最終的に出力ファイルが得られる．
+
+##### 2.2.3 サブコマンドの実装
+vis.jsを用いたブラウザ上でのトポロジ図の参照は，以下のコマンドで行えるように[lib/command_line.rb](./lib/command_line.rb)へ実装した．
+```
+$ ./bin/trema run ./lib/topology_controller.rb -- visjs index.html
+```
+以上のように実行することで，`./index.html`が生成され，これをwebブラウザで開くことでvis.jsを用いたトポロジ図が参照できる．
+[lib/command_line.rb](./lib/command_line.rb)の実装は下記の通り．
+```Ruby
+52: def define_visjs_command
+53:   desc 'Displays topology information (visjs mode)'
+54:   arg_name 'output_file'
+55:   command :visjs do |cmd|
+56:     cmd.action(&method(:create_visjs_view))
+57:   end
+58: end
+```
 
 #### 2.3 実機スイッチにホストを接続した際に送信される，意図しないパケットへの対応
 実機スイッチにホストを接続すると，LLDP，IPv4パケット，Arpによるパケットのいずれにも属さないパケット(以降，このパケットをゴミパケットと呼ぶ)
@@ -96,7 +123,7 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 デフォルトのプログラムでは，LLDP以外のパケットは，ホストから送信されたパケットとみなし，トポロジにホストを追加する処理を
 行っているが，ゴミパケットによるPacketInが発生すると，ホストの情報が取得できないため，プログラムが強制終了してしまうといった
 問題が発生する．
-この問題を解決するために，[/lib/topology_controller.rb](topology_controller.rb)のプログラムのうち，パケットの判別に関する
+この問題を解決するために，[lib/topology_controller.rb](./lib/topology_controller.rb)のプログラムのうち，パケットの判別に関する
 処理の部分を以下のように修正した．
 ```ruby
 46: def packet_in(dpid, packet_in)
@@ -123,8 +150,8 @@ ArpによるパケットやIPv4Packetである場合は，ホストを追加す�
 このようにプログラムを修正することで，ゴミパケットによる問題を解決した．
 
 #### 2.4 実機スイッチを用いた動作の検証
-VSI間で適当にイーサネットケーブルを配線し、2台のPCをホストとして接続した実機に対し、ブラウザ表示機能を用いてトポロジ図を表示させた．
-実行時の様子と、実行結果の画面を以下に示す．  
+VSI間で適当にイーサネットケーブルを配線し，2台のPCをホストとして接続した実機に対し，ブラウザ表示機能を用いてトポロジ図を表示させた．
+実行時の様子と，実行結果の画面を以下に示す．  
 
 |<figure><img src="./img_report/real_machine.jpg" height="320px"><br><figcaption>実行時の様子</figcaption></figure>|<figure><img src="./img_report/screenshot_real.png" height="320px"><br><figcaption>表示結果</figcaption></figure>|
 |:--:|:--:|
