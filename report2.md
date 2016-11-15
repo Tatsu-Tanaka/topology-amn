@@ -96,7 +96,7 @@ updateハンドラのローカルな配列outtextの各要素は、最終的なh
 デフォルトのプログラムでは，LLDP以外のパケットは，ホストから送信されたパケットとみなし，トポロジにホストを追加する処理を
 行っているが，ゴミパケットによるPacketInが発生すると，ホストの情報が取得できないため，プログラムが強制終了してしまうといった
 問題が発生する．
-この問題を解決するために，[/lib/topology_controller.rb]topology_controller.rbのプログラムのうち，パケットの判別に関する
+この問題を解決するために，[/lib/topology_controller.rb](topology_controller.rb)のプログラムのうち，パケットの判別に関する
 処理の部分を以下のように修正した．
 ```ruby
 46: def packet_in(dpid, packet_in)
